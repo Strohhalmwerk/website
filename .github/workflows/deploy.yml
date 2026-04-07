@@ -18,6 +18,7 @@ jobs:
           password: ${{ secrets.FTP_PASS }}
           server-dir: /html/
           protocol: ftps
+          dangerous-clean-slate: true
           exclude: |
             **/.git*
             **/.git*/**
