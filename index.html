@@ -1,0 +1,2714 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Natürliche Strohhalme – Strohhalmwerk</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #111;
+      --dark: #1a1a1a;
+      --white: #fff;
+      --light: #f5f4f0;
+      --mid: #e8e6e0;
+      --green: #3a5c3a;
+      --green-light: #5a8a5a;
+      --text: #2a2a2a;
+      --muted: #6b6b6b;
+      --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font);
+      color: var(--text);
+      background: var(--white);
+      line-height: 1.6;
+    }
+
+    /* ── ANNOUNCEMENT BAR ── */
+    .announcement {
+      background: var(--black);
+      color: var(--white);
+      text-align: center;
+      padding: 10px 20px;
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    /* ── HEADER / NAV ── */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--white);
+      border-bottom: 1px solid var(--mid);
+    }
+
+    nav {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 40px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--black);
+      text-decoration: none;
+    }
+
+    .logo span {
+      color: var(--green);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+      align-items: center;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text);
+      font-size: 0.88rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--green); }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      height: 88vh;
+      min-height: 520px;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      background: var(--light);
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to right, rgba(245,244,240,0.92) 45%, rgba(245,244,240,0.3) 100%),
+        url('https://strohhalmwerk.de/wp-content/uploads/2026/03/Gemini_Generated_Image_wvw8fxwvw8fxwvw8-scaled.png') center/cover no-repeat;
+    }
+
+    /* Fallback pattern if image fails */
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 70% 50%, rgba(90,138,90,0.15) 0%, transparent 60%);
+    }
+
+    .hero-content {
+      position: relative;
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 40px;
+      z-index: 1;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      background: var(--green);
+      color: var(--white);
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      border-radius: 2px;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      color: var(--black);
+      max-width: 600px;
+      margin-bottom: 16px;
+    }
+
+    .hero p {
+      font-size: 1rem;
+      color: var(--muted);
+      max-width: 440px;
+      margin-bottom: 36px;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background: var(--black);
+      color: var(--white);
+      text-decoration: none;
+      padding: 14px 32px;
+      font-size: 0.82rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 600;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .btn-primary:hover { background: var(--green); transform: translateY(-1px); }
+
+    /* ── INTRO SECTION ── */
+    .intro {
+      padding: 100px 40px;
+      text-align: center;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    .intro h2 {
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin-bottom: 20px;
+    }
+
+    .intro p {
+      color: var(--muted);
+      font-size: 1.05rem;
+      line-height: 1.8;
+    }
+
+    /* ── FEATURES STRIP (dark) ── */
+    .features {
+      background: var(--dark);
+      color: var(--white);
+      padding: 80px 40px;
+    }
+
+    .features-grid {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px;
+    }
+
+    .feature-item {
+      text-align: center;
+    }
+
+    .feature-icon {
+      width: 52px;
+      height: 52px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-radius: 50%;
+      margin: 0 auto 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+
+    .feature-item h4 {
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      color: rgba(255,255,255,0.9);
+    }
+
+    .feature-item p {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.7;
+    }
+
+    /* ── SPLIT SECTION ── */
+    .split {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 100px 40px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .split.reverse { direction: rtl; }
+    .split.reverse > * { direction: ltr; }
+
+    .split-img {
+      aspect-ratio: 4/3;
+      background: var(--light);
+      overflow: hidden;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .split-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .split-img-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      color: var(--green);
+      background: linear-gradient(135deg, #e8ede8 0%, #d4e0d4 100%);
+    }
+
+    .split-img-placeholder .big-icon { font-size: 4rem; }
+    .split-img-placeholder span { font-size: 0.9rem; color: var(--green-light); }
+
+    .split-text h2 {
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+
+    .split-text p {
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.8;
+      margin-bottom: 32px;
+    }
+
+    /* ── PRODUCTS / PREISLISTE ── */
+    .products {
+      background: var(--light);
+      padding: 100px 40px;
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto 60px;
+    }
+
+    .section-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--green);
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .section-header h2 {
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+    }
+
+    .section-header p {
+      margin-top: 16px;
+      color: var(--muted);
+    }
+
+    .product-cards {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .product-card {
+      background: var(--white);
+      border: 1px solid var(--mid);
+      padding: 36px 32px;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+
+    .product-card:hover {
+      box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+      transform: translateY(-2px);
+    }
+
+    .product-card .size-badge {
+      display: inline-block;
+      background: var(--dark);
+      color: var(--white);
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      padding: 4px 10px;
+      margin-bottom: 20px;
+      font-family: monospace;
+    }
+
+    .product-card h3 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+
+    .product-card .tagline {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-bottom: 24px;
+    }
+
+    .product-card ul {
+      list-style: none;
+      margin-bottom: 32px;
+    }
+
+    .product-card li {
+      font-size: 0.87rem;
+      color: var(--muted);
+      padding: 7px 0;
+      border-bottom: 1px solid var(--mid);
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .product-card li::before {
+      content: '✓';
+      color: var(--green);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .product-card .price {
+      font-size: 1.8rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--black);
+    }
+
+    .product-card .price-sub {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    /* ── SKU TABLE SECTION ── */
+    .sku-section {
+      padding: 100px 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .table-wrapper {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      touch-action: pan-y;
+      margin-top: 48px;
+      border: 1px solid var(--mid);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+    }
+
+    thead {
+      background: var(--black);
+      color: var(--white);
+    }
+
+    thead th {
+      padding: 14px 20px;
+      text-align: left;
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    tbody tr {
+      border-bottom: 1px solid var(--mid);
+      transition: background 0.15s;
+    }
+
+    tbody tr:hover { background: var(--light); }
+
+    tbody td {
+      padding: 14px 20px;
+      color: var(--text);
+      vertical-align: middle;
+    }
+
+    tbody td:first-child {
+      font-weight: 700;
+      font-size: 0.82rem;
+      color: var(--green);
+    }
+
+    /* Group header rows */
+    .group-row td {
+      background: var(--light);
+      padding: 9px 20px;
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--muted);
+      border-top: 2px solid var(--mid);
+    }
+
+    /* Description cell (rowspan) */
+    .desc-cell {
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--text);
+      border-right: 2px solid var(--mid);
+      vertical-align: middle;
+      max-width: 260px;
+    }
+
+    /* Sub-rows inside a group share no thick top border */
+    .sub-row td { border-top: none; }
+
+    td.unit-price {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--green);
+      white-space: nowrap;
+    }
+
+    .material-badge {
+      display: inline-block;
+      background: var(--light);
+      border: 1px solid var(--mid);
+      font-size: 0.72rem;
+      padding: 3px 8px;
+      border-radius: 2px;
+      margin: 2px 2px 2px 0;
+      color: var(--muted);
+    }
+
+    .spec-badge {
+      font-family: monospace;
+      background: var(--dark);
+      color: var(--white);
+      font-size: 0.78rem;
+      padding: 3px 8px;
+      border-radius: 2px;
+    }
+
+    /* ── DISCOUNT TABLE ── */
+    .discount-section {
+      background: var(--dark);
+      color: var(--white);
+      padding: 80px 40px;
+    }
+
+    .discount-inner {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .discount-inner .section-label { color: rgba(255,255,255,0.5); }
+
+    .discount-inner h2 {
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin-bottom: 16px;
+    }
+
+    .discount-inner > p {
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 40px;
+      font-size: 0.95rem;
+    }
+
+    .discount-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 32px;
+    }
+
+    .discount-table thead {
+      background: rgba(255,255,255,0.1);
+    }
+
+    .discount-table thead th {
+      color: rgba(255,255,255,0.9);
+    }
+
+    .discount-table tbody tr { border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .discount-table tbody tr:hover { background: rgba(255,255,255,0.05); }
+
+    .discount-table tbody td {
+      color: rgba(255,255,255,0.8);
+      padding: 16px 20px;
+    }
+
+    .discount-table tbody td:last-child {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--white);
+    }
+
+    .discount-note {
+      color: rgba(255,255,255,0.5);
+      font-size: 0.88rem;
+      line-height: 1.7;
+    }
+
+    /* ── CONTACT ── */
+    .contact {
+      padding: 100px 40px;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    .contact form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: 48px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-group label {
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      border: 1px solid var(--mid);
+      background: var(--white);
+      padding: 12px 16px;
+      font-family: var(--font);
+      font-size: 0.92rem;
+      color: var(--text);
+      transition: border-color 0.2s;
+      outline: none;
+      resize: vertical;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: var(--black);
+    }
+
+    .form-group textarea { min-height: 140px; }
+
+    .btn-submit {
+      background: var(--black);
+      color: var(--white);
+      border: none;
+      padding: 16px 40px;
+      font-size: 0.82rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+      align-self: flex-start;
+    }
+
+    .btn-submit:hover { background: var(--green); }
+
+    .form-success {
+      display: none;
+      background: #e8f0e8;
+      border: 1px solid var(--green);
+      color: var(--green);
+      padding: 16px 20px;
+      font-size: 0.9rem;
+      margin-top: 16px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--black);
+      color: rgba(255,255,255,0.6);
+      padding: 60px 40px 40px;
+    }
+
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding-bottom: 40px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    .footer-logo {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--white);
+      text-decoration: none;
+      display: block;
+      margin-bottom: 12px;
+    }
+
+    .footer-logo span { color: #7ab87a; }
+
+    .footer-col h5 {
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.9);
+      margin-bottom: 16px;
+    }
+
+    .footer-col p, .footer-col a {
+      font-size: 0.85rem;
+      line-height: 1.9;
+      color: rgba(255,255,255,0.5);
+      text-decoration: none;
+      display: block;
+    }
+
+    .footer-col a:hover { color: var(--white); }
+
+    .footer-bottom {
+      margin-top: 32px;
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.3);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    /* ── QUANTITY CONTROLS ── */
+    .qty-ctrl {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      width: fit-content;
+      touch-action: manipulation;
+    }
+
+    .qty-btn {
+      width: 30px;
+      height: 30px;
+      background: var(--light);
+      border: 1px solid var(--mid);
+      color: var(--text);
+      font-size: 1.1rem;
+      line-height: 1;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s, color 0.15s;
+      user-select: none;
+      flex-shrink: 0;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .qty-btn:hover { background: var(--black); color: var(--white); }
+
+    .qty-input {
+      width: 44px;
+      height: 30px;
+      border: 1px solid var(--mid);
+      border-left: none;
+      border-right: none;
+      text-align: center;
+      font-size: 0.88rem;
+      font-family: var(--font);
+      color: var(--text);
+      background: var(--white);
+      outline: none;
+      -moz-appearance: textfield;
+    }
+
+    .qty-input::-webkit-outer-spin-button,
+    .qty-input::-webkit-inner-spin-button { -webkit-appearance: none; }
+
+    /* Row highlight when qty > 0 */
+    tbody tr.selected:not(.group-row) { background: #f0f5f0; }
+    tbody tr.group-row { cursor: default; }
+    tbody tr.group-row:hover { background: var(--light); }
+
+    /* ── ORDER SUMMARY BAR ── */
+    .order-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--black);
+      color: var(--white);
+      z-index: 90;
+      transform: translateY(100%);
+      transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+      box-shadow: 0 -4px 24px rgba(0,0,0,0.25);
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+
+    .order-bar.visible { transform: translateY(0); }
+
+    .order-bar-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 16px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .order-bar-info {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .order-bar-title {
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+    }
+
+    .order-bar-count {
+      font-size: 1.1rem;
+      font-weight: 700;
+    }
+
+    .order-bar-items {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.55);
+      max-width: 500px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .order-bar-actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    .btn-order {
+      background: var(--white);
+      color: var(--black);
+      border: none;
+      padding: 10px 24px;
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .btn-order:hover { background: var(--green); color: var(--white); }
+
+    .btn-order-clear {
+      background: transparent;
+      color: rgba(255,255,255,0.4);
+      border: 1px solid rgba(255,255,255,0.2);
+      padding: 10px 16px;
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .btn-order-clear:hover { color: var(--white); border-color: var(--white); }
+
+    .order-bar-price {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--white);
+      white-space: nowrap;
+    }
+
+    .order-bar-discount {
+      font-size: 0.75rem;
+      color: #7be07b;
+      font-weight: 600;
+      margin-left: 6px;
+    }
+
+    @media (max-width: 768px) {
+      .order-bar-inner { padding: 14px 20px; }
+      .order-bar-items { display: none; }
+      .btn-order { padding: 10px 18px; }
+    }
+
+    /* ── CART DRAWER ── */
+    .cart-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.45);
+      z-index: 290;
+    }
+    .cart-overlay.open { display: block; }
+
+    .cart-drawer {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: min(480px, 100vw);
+      background: var(--white);
+      z-index: 300;
+      transform: translateX(100%);
+      transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+      box-shadow: -4px 0 40px rgba(0,0,0,0.15);
+      display: flex;
+      flex-direction: column;
+    }
+    .cart-drawer.open { transform: translateX(0); }
+
+    .cart-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--mid);
+      flex-shrink: 0;
+    }
+    .cart-header h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+    .cart-close {
+      width: 36px; height: 36px;
+      background: var(--light);
+      border: none;
+      cursor: pointer;
+      font-size: 1.2rem;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 50%;
+      transition: background 0.15s;
+    }
+    .cart-close:hover { background: var(--mid); }
+
+    .cart-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px 24px;
+    }
+
+    .cart-empty {
+      text-align: center;
+      color: var(--muted);
+      padding: 60px 0;
+      font-size: 0.9rem;
+    }
+
+    .cart-item {
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--mid);
+    }
+    .cart-item-name {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text);
+      line-height: 1.4;
+    }
+    .cart-item-name small {
+      display: block;
+      color: var(--muted);
+      font-weight: 400;
+      font-size: 0.78rem;
+      margin-top: 2px;
+    }
+    .cart-item-qty {
+      font-size: 0.82rem;
+      color: var(--muted);
+      text-align: right;
+      white-space: nowrap;
+    }
+    .cart-item-price {
+      font-size: 0.88rem;
+      font-weight: 700;
+      text-align: right;
+      white-space: nowrap;
+      min-width: 72px;
+    }
+    .cart-item-price.on-request {
+      font-size: 0.75rem;
+      color: var(--muted);
+      font-weight: 400;
+    }
+
+    .cart-footer {
+      border-top: 2px solid var(--mid);
+      padding: 20px 24px;
+      flex-shrink: 0;
+      background: var(--white);
+    }
+
+    .cart-totals { margin-bottom: 16px; }
+
+    .cart-total-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      color: var(--muted);
+      padding: 5px 0;
+    }
+    .cart-total-row.discount  { color: #2a7a2a; font-weight: 600; }
+    .cart-total-row.coupon    { color: #1a6aaa; font-weight: 600; }
+    .cart-total-row.vat       { color: var(--muted); }
+    .cart-total-row.net-total {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--text);
+      padding-top: 10px;
+      border-top: 1px solid var(--mid);
+      margin-top: 4px;
+    }
+    .cart-total-row.grand {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--black);
+      padding-top: 8px;
+    }
+    .cart-total-row.grand span:last-child { letter-spacing: -0.02em; }
+
+    /* ── COUPON ── */
+    .coupon-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    .coupon-input {
+      flex: 1;
+      border: 1px solid var(--mid);
+      padding: 10px 12px;
+      font-family: var(--font);
+      font-size: 0.85rem;
+      outline: none;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      transition: border-color 0.2s;
+    }
+    .coupon-input:focus { border-color: var(--black); }
+    .coupon-input::placeholder { text-transform: none; letter-spacing: 0; color: #bbb; }
+    .btn-coupon {
+      background: var(--black);
+      color: var(--white);
+      border: none;
+      padding: 10px 16px;
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+      white-space: nowrap;
+    }
+    .btn-coupon:hover { background: var(--green); }
+    .coupon-feedback {
+      font-size: 0.78rem;
+      margin-bottom: 12px;
+      padding: 8px 10px;
+      border-radius: 2px;
+      display: none;
+    }
+    .coupon-feedback.ok  { background: #e8f5e8; color: #2a7a2a; border: 1px solid #b0d8b0; }
+    .coupon-feedback.err { background: #fde8e8; color: #a02020; border: 1px solid #e0b0b0; }
+
+    .cart-note {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-bottom: 16px;
+      line-height: 1.6;
+    }
+    .cart-note .on-req-badge {
+      display: inline-block;
+      background: #fff8e1;
+      border: 1px solid #f0d060;
+      color: #8a6a00;
+      font-size: 0.7rem;
+      padding: 2px 6px;
+      border-radius: 2px;
+      margin-left: 4px;
+    }
+
+    .btn-checkout {
+      width: 100%;
+      background: var(--black);
+      color: var(--white);
+      border: none;
+      padding: 16px;
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn-checkout:hover { background: var(--green); }
+
+    /* ── COOKIE BANNER ── */
+    .cookie-banner {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(16px);
+      opacity: 0;
+      width: min(580px, calc(100vw - 32px));
+      background: var(--white);
+      border: 1px solid var(--mid);
+      box-shadow: 0 8px 40px rgba(0,0,0,0.14);
+      padding: 24px 28px;
+      z-index: 95;
+      transition: opacity 0.35s ease, transform 0.35s ease;
+      pointer-events: none;
+    }
+    .cookie-banner.visible {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+      pointer-events: all;
+    }
+    .cookie-banner h4 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--black);
+    }
+    .cookie-banner p {
+      font-size: 0.8rem;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 18px;
+    }
+    .cookie-banner p a {
+      color: var(--green);
+      text-decoration: underline;
+      cursor: pointer;
+    }
+    .cookie-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .btn-cookie-accept {
+      background: var(--black);
+      color: var(--white);
+      border: none;
+      padding: 10px 22px;
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 700;
+      cursor: pointer;
+      touch-action: manipulation;
+      transition: background 0.2s;
+    }
+    .btn-cookie-accept:hover { background: var(--green); }
+    .btn-cookie-decline {
+      background: transparent;
+      color: var(--muted);
+      border: 1px solid var(--mid);
+      padding: 10px 18px;
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      touch-action: manipulation;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .btn-cookie-decline:hover { color: var(--black); border-color: var(--black); }
+
+    /* ── DATENSCHUTZ MODAL ── */
+    .dsgvo-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 400;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .dsgvo-overlay.open { display: flex; }
+    .dsgvo-modal {
+      background: var(--white);
+      max-width: 640px;
+      width: 100%;
+      max-height: 80vh;
+      overflow-y: auto;
+      padding: 40px;
+      position: relative;
+    }
+    .dsgvo-modal h3 {
+      font-size: 1.3rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+    }
+    .dsgvo-modal h4 {
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--black);
+      margin: 20px 0 8px;
+    }
+    .dsgvo-modal p, .dsgvo-modal li {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+    .dsgvo-modal ul { padding-left: 18px; margin-bottom: 8px; }
+    .dsgvo-modal a { color: var(--green); }
+    .dsgvo-close {
+      position: sticky;
+      bottom: 0;
+      display: block;
+      width: 100%;
+      margin-top: 28px;
+      background: var(--black);
+      color: var(--white);
+      border: none;
+      padding: 14px;
+      font-size: 0.82rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 600;
+      cursor: pointer;
+      touch-action: manipulation;
+    }
+    .dsgvo-close:hover { background: var(--green); }
+
+    @media (max-width: 480px) {
+      .cookie-banner { padding: 18px 18px; bottom: 12px; }
+      .dsgvo-modal { padding: 24px 20px; }
+    }
+
+    /* ── ABOUT US ── */
+    .about {
+      background: var(--white);
+      padding: 120px 40px;
+    }
+
+    .about-intro {
+      max-width: 720px;
+      margin: 0 auto 80px;
+      text-align: center;
+    }
+
+    .about-intro h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+
+    .about-intro p {
+      color: var(--muted);
+      font-size: 1.05rem;
+      line-height: 1.8;
+    }
+
+    .about-story {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 100px;
+    }
+
+    .about-block {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 72px;
+      align-items: center;
+    }
+
+    .about-block.flip { direction: rtl; }
+    .about-block.flip > * { direction: ltr; }
+
+    .about-img-wrap {
+      position: relative;
+    }
+
+    .about-img-placeholder {
+      aspect-ratio: 4/3;
+      background: linear-gradient(135deg, #dce8dc 0%, #c4d8c4 100%);
+      border-radius: 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      color: var(--green);
+      overflow: hidden;
+    }
+
+    .about-img-placeholder .ph-icon { font-size: 3rem; opacity: 0.6; }
+
+    .about-img-placeholder .ph-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--green-light);
+      font-weight: 600;
+    }
+
+    /* Decorative accent corner */
+    .about-img-wrap::before {
+      content: '';
+      position: absolute;
+      bottom: -14px;
+      right: -14px;
+      width: 60%;
+      height: 60%;
+      border: 2px solid var(--mid);
+      border-radius: 4px;
+      z-index: -1;
+    }
+
+    .about-block.flip .about-img-wrap::before {
+      right: auto;
+      left: -14px;
+    }
+
+    .about-text .about-chapter {
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--green);
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .about-text h3 {
+      font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin-bottom: 20px;
+      color: var(--black);
+    }
+
+    .about-text p {
+      color: var(--muted);
+      font-size: 0.97rem;
+      line-height: 1.9;
+      margin-bottom: 16px;
+    }
+
+    .about-text p:last-of-type { margin-bottom: 0; }
+
+    .about-quote {
+      margin-top: 24px;
+      padding: 16px 20px;
+      border-left: 3px solid var(--green);
+      background: var(--light);
+      font-style: italic;
+      font-size: 0.95rem;
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    /* Values strip inside about */
+    .about-values {
+      max-width: 1200px;
+      margin: 80px auto 0;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      background: var(--mid);
+    }
+
+    .about-value {
+      background: var(--white);
+      padding: 32px 28px;
+    }
+
+    .about-value .val-icon { font-size: 1.6rem; margin-bottom: 12px; }
+
+    .about-value h4 {
+      font-size: 0.88rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin-bottom: 8px;
+      color: var(--black);
+    }
+
+    .about-value p {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* Founder badges */
+    .founder-row {
+      display: flex;
+      gap: 20px;
+      margin-top: 28px;
+    }
+
+    .founder-badge {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--light);
+      border: 1px solid var(--mid);
+      padding: 10px 14px;
+      border-radius: 2px;
+    }
+
+    .founder-avatar {
+      width: 36px;
+      height: 36px;
+      background: var(--green);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      font-size: 0.85rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .founder-info { line-height: 1.3; }
+    .founder-info strong { font-size: 0.82rem; color: var(--black); display: block; }
+    .founder-info span   { font-size: 0.72rem; color: var(--muted); }
+
+    @media (max-width: 1024px) {
+      .about { padding: 80px 32px; }
+      .about-block { gap: 48px; }
+      .about-values { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    @media (max-width: 768px) {
+      .about { padding: 60px 20px; }
+      .about-intro { margin-bottom: 52px; }
+      .about-story { gap: 60px; }
+      .about-block { grid-template-columns: 1fr; gap: 32px; }
+      .about-block.flip { direction: ltr; }
+      .about-img-wrap::before { display: none; }
+      .about-values { grid-template-columns: 1fr; }
+      .founder-row { flex-direction: column; gap: 12px; }
+    }
+
+    /* ── HAMBURGER BUTTON ── */
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 40px;
+      height: 40px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      z-index: 200;
+    }
+
+    .nav-toggle span {
+      display: block;
+      height: 2px;
+      background: var(--black);
+      border-radius: 2px;
+      transition: transform 0.3s, opacity 0.3s;
+      transform-origin: center;
+    }
+
+    .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-toggle.open span:nth-child(2) { opacity: 0; }
+    .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* ── RESPONSIVE: TABLET (≤ 1024px) ── */
+    @media (max-width: 1024px) {
+      .product-cards {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .split {
+        gap: 48px;
+        padding: 80px 32px;
+      }
+
+      .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 32px;
+      }
+
+      .footer-top {
+        gap: 28px;
+      }
+    }
+
+    /* ── RESPONSIVE: MOBILE (≤ 768px) ── */
+    @media (max-width: 768px) {
+      /* Announcement bar */
+      .announcement {
+        font-size: 0.68rem;
+        padding: 8px 16px;
+        letter-spacing: 0.04em;
+      }
+
+      /* Nav */
+      nav { padding: 0 20px; }
+
+      .nav-toggle { display: flex; }
+
+      .nav-links {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: min(280px, 80vw);
+        background: var(--white);
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        gap: 0;
+        padding: 80px 40px 40px;
+        box-shadow: -4px 0 40px rgba(0,0,0,0.12);
+        transform: translateX(100%);
+        transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+        z-index: 150;
+      }
+
+      .nav-links.open { transform: translateX(0); }
+
+      .nav-links li { width: 100%; }
+
+      .nav-links a {
+        display: block;
+        padding: 16px 0;
+        font-size: 1rem;
+        border-bottom: 1px solid var(--mid);
+        letter-spacing: 0.06em;
+      }
+
+      /* Nav overlay */
+      .nav-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.4);
+        z-index: 140;
+      }
+
+      .nav-overlay.open { display: block; }
+
+      /* Hero */
+      .hero {
+        height: auto;
+        min-height: 100svh;
+        align-items: flex-end;
+        padding-bottom: 60px;
+      }
+
+      .hero-bg {
+        background:
+          linear-gradient(to top, rgba(245,244,240,0.97) 40%, rgba(245,244,240,0.5) 100%),
+          url('https://strohhalmwerk.de/wp-content/uploads/2026/03/Gemini_Generated_Image_wvw8fxwvw8fxwvw8-scaled.png') center/cover no-repeat;
+      }
+
+      .hero-content { padding: 0 20px; }
+
+      .hero h1 { font-size: clamp(2rem, 10vw, 2.8rem); }
+
+      .hero p { max-width: 100%; }
+
+      .btn-primary { width: 100%; text-align: center; }
+
+      /* Intro */
+      .intro { padding: 60px 20px; }
+
+      /* Features */
+      .features { padding: 60px 20px; }
+      .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+      }
+
+      /* Split */
+      .split {
+        grid-template-columns: 1fr;
+        gap: 32px;
+        padding: 60px 20px;
+      }
+      .split.reverse { direction: ltr; }
+
+      /* Products */
+      .products { padding: 60px 20px; }
+      .product-cards { grid-template-columns: 1fr; }
+
+      /* SKU table */
+      .sku-section { padding: 60px 20px; }
+
+      /* Discount */
+      .discount-section { padding: 60px 20px; }
+
+      /* Contact */
+      .contact { padding: 60px 20px; }
+      .form-row { grid-template-columns: 1fr; }
+      .btn-submit { width: 100%; text-align: center; }
+
+      /* Footer */
+      footer { padding: 48px 20px 32px; }
+      .footer-top {
+        flex-direction: column;
+        gap: 32px;
+      }
+      .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+        gap: 6px;
+      }
+    }
+
+    /* ── RESPONSIVE: SMALL MOBILE (≤ 480px) ── */
+    @media (max-width: 480px) {
+      .announcement { display: none; }
+
+      .hero h1 { font-size: clamp(1.8rem, 9vw, 2.4rem); }
+
+      .features-grid { grid-template-columns: 1fr; }
+
+      .section-header h2 { font-size: 1.6rem; }
+
+      .discount-table tbody td:last-child { font-size: 1.1rem; }
+
+      .product-card { padding: 24px 20px; }
+    }
+
+    /* ── PRODUKT-TABELLE MOBILE (≤ 600px) ── */
+    @media (max-width: 600px) {
+      /* SKU-Spalte (th:2) und Preis/Stück (th:4) auf Mobile ausblenden */
+      #produkte thead th:nth-child(2)                      { display: none; }
+      #produkte thead th:nth-child(4)                      { display: none; }
+      #produkte tr[data-sku]:not(.sub-row) td:nth-child(2) { display: none; }
+      #produkte tr[data-sku]:not(.sub-row) td.unit-price   { display: none; }
+      #produkte tr.sub-row td:nth-child(1)                 { display: none; }
+      #produkte tr.sub-row td.unit-price                   { display: none; }
+
+      /* Kompaktere Zellen */
+      #produkte thead th { padding: 10px 10px; font-size: 0.65rem; }
+      #produkte tbody td { padding: 10px 10px; }
+
+      /* Beschreibungszelle schmaler */
+      .desc-cell {
+        font-size: 0.8rem;
+        padding: 10px 10px;
+        min-width: 80px;
+        max-width: 110px;
+      }
+      .desc-cell small { font-size: 0.7rem; }
+
+      /* Spec-Badge kompakter */
+      .spec-badge { font-size: 0.72rem; padding: 3px 6px; }
+
+      /* Qty-Control – mind. 44px Touch-Target */
+      .qty-btn  { width: 38px; height: 44px; font-size: 1.1rem; }
+      .qty-input { width: 36px; height: 44px; font-size: 0.85rem; }
+
+      /* Gruppen-Zeile */
+      #produkte .group-row td { font-size: 0.68rem; padding: 8px 10px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ANNOUNCEMENT BAR -->
+<div class="announcement">
+  100 % biologisch abbaubar &nbsp;·&nbsp; Nachhaltige Materialien &nbsp;·&nbsp; Hergestellt aus nachwachsenden Rohstoffen
+</div>
+
+<!-- HEADER -->
+<header>
+  <nav>
+    <a href="#" class="logo">Strohhalm<span>werk</span></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#preisliste" class="nav-link">Preisliste</a></li>
+      <li><a href="#produkte" class="nav-link">Produkte</a></li>
+      <li><a href="#ueber-uns" class="nav-link">Über uns</a></li>
+      <li><a href="#kontakt" class="nav-link">Kontakt</a></li>
+      <li><a href="#impressum" class="nav-link">Impressum</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Menü öffnen">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <div class="nav-overlay" id="navOverlay"></div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <span class="hero-tag">100 % Biologisch abbaubar</span>
+    <h1>Aus der Natur.<br>Für deinen Drink.<br>Zurück in die Natur.</h1>
+    <p>Unsere Strohhalme sind biologisch abbaubar – aus Zuckerrohr, Bambus oder Kaffee. Volle Stabilität, null Plastik.</p>
+    <a href="#preisliste" class="btn-primary">Preise entdecken</a>
+  </div>
+</section>
+
+<!-- SKU PRODUCT TABLE -->
+<section id="produkte" class="sku-section">
+  <div class="section-header" style="text-align:left; max-width:100%; margin-bottom:0;">
+    <p class="section-label">Vollständiges Sortiment</p>
+    <h2>Alle Produktvarianten</h2>
+    <p style="color:var(--muted); margin-top:12px;">Verfügbar in verschiedenen Materialien, Durchmessern und Längen.</p>
+  </div>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>Beschreibung</th>
+          <th>SKU</th>
+          <th>Spezifikation</th>
+          <th>Preis / Stück</th>
+          <th>Menge (Pakete)</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <!-- ── GRUPPE: Zuckerrohr / Kaffeefaser / Bambus ── -->
+        <tr class="group-row">
+          <td colspan="4">🌾 Zuckerrohr &nbsp;·&nbsp; Kaffeefaser &nbsp;·&nbsp; Bambus</td>
+        </tr>
+        <tr data-sku="1" data-price="3.00" data-desc="Gerade Enden (Zuckerrohr/Kaffeefaser/Bambus) – 6×150mm">
+          <td class="desc-cell" rowspan="3">Gerade Enden</td>
+          <td>#1</td>
+          <td><span class="spec-badge">6 × 150 mm</span></td>
+          <td class="unit-price">3,00 €</td>
+          <td><div class="qty-ctrl"><button type="button" class="qty-btn" data-action="minus">−</button><input class="qty-input" type="number" value="0" min="0" max="9999"/><button type="button" class="qty-btn" data-action="plus">+</button></div></td>
+        </tr>
+        <tr class="sub-row" data-sku="2" data-price="3.00" data-desc="Gerade Enden (Zuckerrohr/Kaffeefaser/Bambus) – 6×200mm">
+          <td>#2</td>
+          <td><span class="spec-badge">6 × 200 mm</span></td>
+          <td class="unit-price">3,00 €</td>
+          <td><div class="qty-ctrl"><button type="button" class="qty-btn" data-action="minus">−</button><input class="qty-input" type="number" value="0" min="0" max="9999"/><button type="button" class="qty-btn" data-action="plus">+</button></div></td>
+        </tr>
+        <tr class="sub-row" data-sku="3" data-price="3.00" data-desc="Gerade Enden (Zuckerrohr/Kaffeefaser/Bambus) – 8×200mm">
+          <td>#3</td>
+          <td><span class="spec-badge">8 × 200 mm</span></td>
+          <td class="unit-price">3,00 €</td>
+          <td><div class="qty-ctrl"><button type="button" class="qty-btn" data-action="minus">−</button><input class="qty-input" type="number" value="0" min="0" max="9999"/><button type="button" class="qty-btn" data-action="plus">+</button></div></td>
+        </tr>
+        <tr data-sku="4" data-price="" data-desc="Spitzes Ende (Zuckerrohr/Kaffeefaser/Bambus) – 12×230mm">
+          <td class="desc-cell">Spitzes Ende</td>
+          <td>#4</td>
+          <td><span class="spec-badge">12 × 230 mm</span></td>
+          <td class="unit-price">3,00 €</td>
+          <td><div class="qty-ctrl"><button type="button" class="qty-btn" data-action="minus">−</button><input class="qty-input" type="number" value="0" min="0" max="9999"/><button type="button" class="qty-btn" data-action="plus">+</button></div></td>
+        </tr>
+        <tr data-sku="5" data-price="3.00" data-desc="Knick-Strohhalm (Zuckerrohr) – 6×200mm">
+          <td class="desc-cell" rowspan="2">Knick-Strohhalm</td>
+          <td>#5</td>
+          <td><span class="spec-badge">6 × 200 mm</span></td>
+          <td class="unit-price">3,00 €</td>
+          <td><div class="qty-ctrl"><button type="button" class="qty-btn" data-action="minus">−</button><input class="qty-input" type="number" value="0" min="0" max="9999"/><button type="button" class="qty-btn" data-action="plus">+</button></div></td>
+        </tr>
+        <tr class="sub-row" data-sku="6" data-price="3.00" data-desc="Knick-Strohhalm (Zuckerrohr) – 8×200mm">
+          <td>#6</td>
+          <td><span class="spec-badge">8 × 200 mm</span></td>
+          <td class="unit-price">3,00 €</td>
+          <td><div class="qty-ctrl"><button type="button" class="qty-btn" data-action="minus">−</button><input class="qty-input" type="number" value="0" min="0" max="9999"/><button type="button" class="qty-btn" data-action="plus">+</button></div></td>
+        </tr>
+
+        <!-- ── GRUPPE: PLA ── -->
+        <tr class="group-row">
+          <td colspan="4">🧪 PLA (Polylactid) – kompostierbar</td>
+        </tr>
+        <tr data-sku="7" data-price="3.00" data-desc="Gerade Enden (PLA) – 6×200mm">
+          <td class="desc-cell" rowspan="2">Gerade Enden</td>
+          <td>#7</td>
+          <td><span class="spec-badge">6 × 200 mm</span></td>
+          <td class="unit-price">3,00 €</td>
+          <td><div class="qty-ctrl"><button type="button" class="qty-btn" data-action="minus">−</button><input class="qty-input" type="number" value="0" min="0" max="9999"/><button type="button" class="qty-btn" data-action="plus">+</button></div></td>
+        </tr>
+        <tr class="sub-row" data-sku="8" data-price="3.00" data-desc="Gerade Enden (PLA) – 8×200mm">
+          <td>#8</td>
+          <td><span class="spec-badge">8 × 200 mm</span></td>
+          <td class="unit-price">3,00 €</td>
+          <td><div class="qty-ctrl"><button type="button" class="qty-btn" data-action="minus">−</button><input class="qty-input" type="number" value="0" min="0" max="9999"/><button type="button" class="qty-btn" data-action="plus">+</button></div></td>
+        </tr>
+        <tr data-sku="9" data-price="" data-desc="Spitzes Ende (PLA) – 12×230mm">
+          <td class="desc-cell">Spitzes Ende</td>
+          <td>#9</td>
+          <td><span class="spec-badge">12 × 230 mm</span></td>
+          <td class="unit-price">3,00 €</td>
+          <td><div class="qty-ctrl"><button type="button" class="qty-btn" data-action="minus">−</button><input class="qty-input" type="number" value="0" min="0" max="9999"/><button type="button" class="qty-btn" data-action="plus">+</button></div></td>
+        </tr>
+
+        <!-- ── GRUPPE: PHA ── -->
+        <tr class="group-row">
+          <td colspan="4">🌊 PHA (Polyhydroxyalkanoat) – meeresabbaubar</td>
+        </tr>
+        <tr data-sku="10" data-price="3.00" data-desc="Gerade Enden (PHA) – 6×200mm">
+          <td class="desc-cell" rowspan="2">Gerade Enden</td>
+          <td>#10</td>
+          <td><span class="spec-badge">6 × 200 mm</span></td>
+          <td class="unit-price">3,00 €</td>
+          <td><div class="qty-ctrl"><button type="button" class="qty-btn" data-action="minus">−</button><input class="qty-input" type="number" value="0" min="0" max="9999"/><button type="button" class="qty-btn" data-action="plus">+</button></div></td>
+        </tr>
+        <tr class="sub-row" data-sku="11" data-price="3.00" data-desc="Gerade Enden (PHA) – 8×200mm">
+          <td>#11</td>
+          <td><span class="spec-badge">8 × 200 mm</span></td>
+          <td class="unit-price">3,00 €</td>
+          <td><div class="qty-ctrl"><button type="button" class="qty-btn" data-action="minus">−</button><input class="qty-input" type="number" value="0" min="0" max="9999"/><button type="button" class="qty-btn" data-action="plus">+</button></div></td>
+        </tr>
+        <tr data-sku="12" data-price="" data-desc="Spitzes Ende (PHA) – 12×230mm">
+          <td class="desc-cell">Spitzes Ende</td>
+          <td>#12</td>
+          <td><span class="spec-badge">12 × 230 mm</span></td>
+          <td class="unit-price">3,00 €</td>
+          <td><div class="qty-ctrl"><button type="button" class="qty-btn" data-action="minus">−</button><input class="qty-input" type="number" value="0" min="0" max="9999"/><button type="button" class="qty-btn" data-action="plus">+</button></div></td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- DISCOUNT TABLE -->
+<section class="discount-section">
+  <div class="discount-inner">
+    <p class="section-label">Großbestellung</p>
+    <h2>Mengenrabatt</h2>
+    <p>Bei höheren Abnahmemengen bieten wir folgende Rabattstaffelung an:</p>
+    <table class="discount-table">
+      <thead>
+        <tr>
+          <th>Abnahmemenge</th>
+          <th>Pakete</th>
+          <th>Rabatt</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>ab 5.000 Stück</td>
+          <td>50 Pakete</td>
+          <td>20 %</td>
+        </tr>
+        <tr>
+          <td>ab 20.000 Stück</td>
+          <td>200 Pakete</td>
+          <td>35 %</td>
+        </tr>
+        <tr>
+          <td>ab 50.000 Stück</td>
+          <td>500 Pakete</td>
+          <td>50 %</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="discount-note">Gerne stellen wir Ihnen auch ein individuelles Angebot, wenn wir einen dauerhaften Liefervertrag mit Ihnen vereinbaren. Bitte kontaktieren Sie uns über unser Kontaktformular.</p>
+  </div>
+</section>
+
+<!-- INTRO -->
+<section class="intro">
+  <h2>Wahrer Genuss hinterlässt keine Spuren</h2>
+  <p>Willkommen bei Strohhalmwerk. Wir glauben, dass echter Genuss kein Plastik braucht. Deshalb setzen wir auf die Kraft der Natur: Unsere Produkte bestehen vollständig aus nachwachsenden Rohstoffen und sind zu 100 % biologisch abbaubar. Das bedeutet für dich: volle Stabilität beim Trinken, null Kompromisse beim Geschmack und ein sauberer Planet für uns alle.</p>
+</section>
+
+<!-- FEATURES STRIP -->
+<section class="features">
+  <div class="features-grid">
+    <div class="feature-item">
+      <div class="feature-icon">🌿</div>
+      <h4>100 % Natürlich</h4>
+      <p>Aus Zuckerrohr, Bambus und Kaffeefasern – vollständig aus nachwachsenden Rohstoffen.</p>
+    </div>
+    <div class="feature-item">
+      <div class="feature-icon">♻️</div>
+      <h4>Biologisch abbaubar</h4>
+      <p>Kein Plastik, keine Mikroplastik-Rückstände – kompostierbar nach Gebrauch.</p>
+    </div>
+    <div class="feature-item">
+      <div class="feature-icon">💪</div>
+      <h4>Hohe Stabilität</h4>
+      <p>Weichen nicht auf, halten auch in heißen Getränken und Smoothies problemlos stand.</p>
+    </div>
+    <div class="feature-item">
+      <div class="feature-icon">✨</div>
+      <h4>Geschmacksneutral</h4>
+      <p>Kein Papiergeschmack, kein Plastikgeruch – reines Trinkerlebnis.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SPLIT: No more plastic -->
+<section>
+  <div class="split">
+    <div class="split-img">
+      <div class="split-img-placeholder">
+        <div class="big-icon">🌾</div>
+        <span>Zuckerrohr · Bambus · Kaffee</span>
+      </div>
+    </div>
+    <div class="split-text">
+      <h2>Kein Plastik mehr.</h2>
+      <p>Plastikstrohhalme brauchen bis zu 500 Jahre zum Abbau und hinterlassen Mikroplastik in unseren Ozeanen und Böden. Unsere natürlichen Strohhalme zersetzen sich vollständig – in wenigen Monaten, ohne Rückstände.</p>
+      <a href="#kontakt" class="btn-primary">Jetzt anfragen</a>
+    </div>
+  </div>
+</section>
+
+<!-- PREISLISTE -->
+<section id="preisliste" class="products">
+  <div class="section-header">
+    <p class="section-label">Unsere Standardgrößen</p>
+    <h2>Preisliste</h2>
+    <p>Preise pro 100er Paket – erhältlich aus Zuckerrohr, Bambus oder Kaffee</p>
+  </div>
+  <div class="product-cards">
+
+    <div class="product-card">
+      <span class="size-badge">6 × 150 mm</span>
+      <h3>3,00 €</h3>
+      <p class="tagline">Perfekt für kleinere Gläser.</p>
+      <ul>
+        <li>Kompakt und platzsparend</li>
+        <li>Angenehmer Durchmesser für dünnflüssige Getränke</li>
+        <li>Ideal für kleinere Gläser und Becher</li>
+        <li>Wasser, Softdrinks, Säfte, Kaffeegetränke</li>
+      </ul>
+      <div class="price-sub">pro 100er Paket</div>
+    </div>
+
+    <div class="product-card">
+      <span class="size-badge">6 × 200 mm</span>
+      <h3>3,00 €</h3>
+      <p class="tagline">Die Standardgröße.</p>
+      <ul>
+        <li>Vielseitig einsetzbar</li>
+        <li>Angenehmer Durchmesser für dünnflüssige Getränke</li>
+        <li>Perfekt für Cocktails in höheren Gläsern</li>
+        <li>Ideal für Softdrinks aus Flaschen</li>
+      </ul>
+      <div class="price-sub">pro 100er Paket</div>
+    </div>
+
+    <div class="product-card">
+      <span class="size-badge">8 × 200 mm</span>
+      <h3>3,00 €</h3>
+      <p class="tagline">Der Allrounder.</p>
+      <ul>
+        <li>Größerer Durchmesser für dickflüssige Getränke</li>
+        <li>Hochwertiges Trinkgefühl</li>
+        <li>Weniger Widerstand beim Trinken</li>
+        <li>Perfekt für Smoothies, Milkshakes und Frapés</li>
+      </ul>
+      <div class="price-sub">pro 100er Paket</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ABOUT US -->
+<section id="ueber-uns" class="about">
+
+  <div class="about-intro">
+    <p class="section-label">Unsere Geschichte</p>
+    <h2>Eine Reise, die alles veränderte.</h2>
+    <p>Wie ein Urlaub auf den Philippinen aus zwei Freunden Gründer machte – und warum wir seitdem keinen einzigen Plastikstrohhalm mehr anfassen wollen.</p>
+  </div>
+
+  <div class="about-story">
+
+    <!-- Block 1: Der Moment auf Palawan -->
+    <div class="about-block">
+      <div class="about-img-wrap">
+        <div class="about-img-placeholder">
+          <div class="ph-icon">🏝️</div>
+          <div class="ph-label">Foto: Philippinen · Palawan</div>
+        </div>
+      </div>
+      <div class="about-text">
+        <p class="about-chapter">Kapitel 1 &nbsp;·&nbsp; Winter 2026</p>
+        <h3>Der Strohhalm, der uns nicht losließ.</h3>
+        <p>
+          Wir saßen in einer kleinen Beach Bar auf Palawan – türkisblaues Wasser, warme Abendluft, zwei eiskalte Cocktails. Der Barkeeper reichte uns die Gläser mit Strohhalmen aus Zuckerrohr. Natürlich, stabil, vollkommen geschmacksneutral. Kein Plastik. Kein schlechtes Gewissen.
+        </p>
+        <p>
+          Auf dem Rückweg sahen wir das andere Bild: Plastikstrohhalme im Sand, an einem der schönsten Strände der Welt, ins Meer gespült. Der Kontrast hat uns nicht mehr losgelassen.
+        </p>
+        <div class="about-quote">
+          „Wenn es hier so selbstverständlich funktioniert – warum eigentlich nicht in Deutschland?"
+        </div>
+      </div>
+    </div>
+
+    <!-- Block 2: Die Gründung -->
+    <div class="about-block flip">
+      <div class="about-img-wrap">
+        <div class="about-img-placeholder">
+          <div class="ph-icon">🚀</div>
+          <div class="ph-label">Foto: Jan &amp; Daniel · Berlin</div>
+        </div>
+      </div>
+      <div class="about-text">
+        <p class="about-chapter">Kapitel 2 &nbsp;·&nbsp; Berlin Frühjahr 2026</p>
+        <h3>Vom Strandgespräch zur Gründung.</h3>
+        <p>
+          Zurück in Berlin stand die Idee fest. Wir haben Monate damit verbracht, Hersteller zu recherchieren, Materialien zu vergleichen und jede Variante selbst zu testen – Zuckerrohr, Bambus, Kaffeefaser, PLA, PHA. Was weicht auf? Was schmeckt nach nichts? Was hält einen Smoothie aus?
+        </p>
+        <p>
+          Im Frühjahr 2026 haben wir Strohhalmwerk gegründet. Nicht als großes Unternehmen, sondern als klares Statement: Es geht auch ohne Plastik. Und zwar ohne Kompromisse beim Trinkgefühl.
+        </p>
+
+        <div class="founder-row">
+          <div class="founder-badge">
+            <div class="founder-avatar">JH</div>
+            <div class="founder-info">
+              <strong>Jan Hübner</strong>
+              <span>Mitgründer</span>
+            </div>
+          </div>
+          <div class="founder-badge">
+            <div class="founder-avatar">DH</div>
+            <div class="founder-info">
+              <strong>Daniel Hanke</strong>
+              <span>Mitgründer</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Werte-Strip -->
+  <div class="about-values">
+    <div class="about-value">
+      <div class="val-icon">🌍</div>
+      <h4>Nachhaltigkeit ist kein Trend</h4>
+      <p>Für uns ist Nachhaltigkeit keine Marketingmaßnahme, sondern der Grund, warum wir überhaupt gegründet haben. Jeder Strohhalm weniger aus Plastik zählt.</p>
+    </div>
+    <div class="about-value">
+      <div class="val-icon">🔬</div>
+      <h4>Qualität ohne Ausrede</h4>
+      <p>Wir haben über 30 Produktmuster getestet, bevor wir unser Sortiment festgelegt haben. Nur was wirklich funktioniert, kommt ins Portfolio.</p>
+    </div>
+    <div class="about-value">
+      <div class="val-icon">🤝</div>
+      <h4>Ehrliche Partnerschaften</h4>
+      <p>Wir arbeiten direkt mit zertifizierten Herstellern zusammen – faire Bedingungen, transparente Lieferketten, keine Zwischenhändler.</p>
+    </div>
+  </div>
+
+</section>
+
+
+<!-- CONTACT -->
+<section id="kontakt" class="contact">
+  <div class="section-header" style="text-align:left; max-width:100%; margin-bottom:0;">
+    <p class="section-label">Schreib uns</p>
+    <h2>Kontakt</h2>
+    <p style="color:var(--muted); margin-top:12px;">Fragen, Bestellungen oder individuelle Angebote – wir freuen uns auf deine Nachricht.</p>
+  </div>
+  <form id="contactForm" onsubmit="handleSubmit(event)">
+    <div class="form-row">
+      <div class="form-group">
+        <label for="name">Dein Name</label>
+        <input type="text" id="name" name="name" placeholder="Max Mustermann" required />
+      </div>
+      <div class="form-group">
+        <label for="email">E-Mail-Adresse</label>
+        <input type="email" id="email" name="email" placeholder="max@beispiel.de" required />
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="subject">Betreff</label>
+      <input type="text" id="subject" name="subject" placeholder="Bestellung / Anfrage / ..." required />
+    </div>
+    <div class="form-group">
+      <label for="message">Deine Nachricht</label>
+      <textarea id="message" name="message" placeholder="Deine Nachricht..."></textarea>
+    </div>
+    <button type="submit" class="btn-submit">Nachricht senden</button>
+    <div class="form-success" id="formSuccess">
+      ✓ Danke für deine Nachricht! Wir melden uns bald bei dir.
+    </div>
+  </form>
+</section>
+
+<!-- FOOTER -->
+<footer id="impressum">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <a href="#" class="footer-logo">Strohhalm<span>werk</span></a>
+        <p style="font-size:0.82rem; color:rgba(255,255,255,0.4); max-width:280px; line-height:1.7;">
+          Natürliche Strohhalme aus nachwachsenden Rohstoffen. Biologisch abbaubar. Für einen sauberen Planeten.
+        </p>
+      </div>
+      <div class="footer-col">
+        <h5>Navigation</h5>
+        <a href="#preisliste">Preisliste</a>
+        <a href="#produkte">Produkte</a>
+        <a href="#ueber-uns">Über uns</a>
+        <a href="#kontakt">Kontakt</a>
+        <a href="#impressum">Impressum</a>
+      </div>
+      <div class="footer-col">
+        <h5>Impressum</h5>
+        <p>Jan Hübner &amp; Daniel Hanke</p>
+        <p>Zinsgutstraße 49</p>
+        <p>12489 Berlin</p>
+        <a href="mailto:info@strohhalmwerk.de">info@strohhalmwerk.de</a>
+        <a href="tel:+4917642758251">+49 176 42758251</a>
+      </div>
+      <div class="footer-col">
+        <h5>Hinweis</h5>
+        <p style="color:rgba(255,255,255,0.35);">Die Website und Firma befindet sich noch im Aufbau.</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Strohhalmwerk – Jan Hübner &amp; Daniel Hanke</span>
+      <span>
+        <a onclick="openDsgvo()" style="color:rgba(255,255,255,0.4);cursor:pointer;text-decoration:underline;">Datenschutz</a>
+        &nbsp;·&nbsp;
+        <a onclick="document.getElementById('cookieBanner').classList.add('visible')" style="color:rgba(255,255,255,0.4);cursor:pointer;text-decoration:underline;">Cookie-Einstellungen</a>
+      </span>
+    </div>
+  </div>
+</footer>
+
+<!-- COOKIE CONSENT BANNER -->
+<div class="cookie-banner" id="cookieBanner">
+  <h4>🍪 Diese Website verwendet Cookies</h4>
+  <p>
+    Wir nutzen Google Analytics, um zu verstehen, wie Besucher unsere Seite verwenden. Die Daten werden anonymisiert erhoben. Du kannst deine Einwilligung jederzeit widerrufen.<br>
+    <a onclick="openDsgvo()">Mehr erfahren (Datenschutzerklärung)</a>
+  </p>
+  <div class="cookie-actions">
+    <button class="btn-cookie-accept" id="btnCookieAccept">Alle akzeptieren</button>
+    <button class="btn-cookie-decline" id="btnCookieDecline">Ablehnen</button>
+  </div>
+</div>
+
+<!-- DATENSCHUTZ MODAL -->
+<div class="dsgvo-overlay" id="dsgvoOverlay">
+  <div class="dsgvo-modal">
+    <h3>Datenschutzerklärung</h3>
+    <p style="font-size:0.75rem;color:var(--muted);">Stand: März 2026 &nbsp;·&nbsp; Strohhalmwerk, Berlin</p>
+
+    <h4>1. Verantwortlicher</h4>
+    <p>
+      Jan Hübner &amp; Daniel Hanke (GbR)<br>
+      Zinsgutstraße 49, 12489 Berlin<br>
+      E-Mail: <a href="mailto:info@strohhalmwerk.de">info@strohhalmwerk.de</a><br>
+      Telefon: +49 176 42758251
+    </p>
+    <p>Ein gesetzlich vorgeschriebener Datenschutzbeauftragter ist für unser Unternehmen nicht erforderlich (§ 38 BDSG).</p>
+
+    <h4>2. Hosting &amp; Server-Logfiles</h4>
+    <p>Diese Website wird auf einem Webserver gehostet. Beim Aufruf der Seite erhebt der Hosting-Anbieter automatisch sogenannte Server-Logfiles. Dazu gehören:</p>
+    <ul>
+      <li>IP-Adresse des anfragenden Geräts (anonymisiert nach 7 Tagen)</li>
+      <li>Datum und Uhrzeit des Zugriffs</li>
+      <li>Name und URL der abgerufenen Datei</li>
+      <li>Browsertyp und -version, Betriebssystem</li>
+    </ul>
+    <p>Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an sicherem Betrieb). Speicherdauer: 7 Tage, danach automatische Löschung.</p>
+
+    <h4>3. Kontaktformular</h4>
+    <p>Wenn du unser Kontaktformular verwendest, verarbeiten wir folgende Daten:</p>
+    <ul>
+      <li>Name, E-Mail-Adresse, Betreff, Nachrichteninhalt</li>
+    </ul>
+    <p>Zweck: Bearbeitung deiner Anfrage und Kommunikation mit dir.<br>
+    Rechtsgrundlage: Art. 6 Abs. 1 lit. b DSGVO (Vertragsanbahnung / -erfüllung) bzw. Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse).<br>
+    Speicherdauer: Anfragen werden nach vollständiger Bearbeitung gelöscht, spätestens nach 3 Jahren, sofern keine gesetzlichen Aufbewahrungspflichten bestehen.<br>
+    Deine Daten werden nicht an Dritte weitergegeben.</p>
+
+    <h4>4. Google Analytics 4 (nur mit Einwilligung)</h4>
+    <p>Diese Website nutzt Google Analytics 4, einen Webanalysedienst der Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland („Google").</p>
+    <ul>
+      <li>Google Analytics setzt Cookies, um die Nutzung der Website statistisch auszuwerten</li>
+      <li>IP-Anonymisierung ist in GA4 standardmäßig aktiv</li>
+      <li>Die Datenverarbeitung erfolgt nur nach deiner ausdrücklichen Einwilligung</li>
+      <li>Speicherdauer der Analytics-Cookies: bis zu 2 Jahre</li>
+    </ul>
+    <p><strong>Drittlandtransfer (USA):</strong> Google verarbeitet Daten auch in den USA. Google LLC ist nach dem EU-US Data Privacy Framework zertifiziert (Angemessenheitsbeschluss der EU-Kommission vom 10. Juli 2023). Zusätzlich bestehen Standardvertragsklauseln (SCCs) gemäß Art. 46 Abs. 2 lit. c DSGVO als Übertragungsmechanismus.</p>
+    <p>Rechtsgrundlage: Art. 6 Abs. 1 lit. a DSGVO (Einwilligung).<br>
+    Weitere Informationen: <a href="https://policies.google.com/privacy" target="_blank">Google Datenschutzerklärung</a> &nbsp;·&nbsp; <a href="https://support.google.com/analytics/answer/6004245" target="_blank">Google Analytics Datenschutz</a></p>
+
+    <h4>5. Cookies</h4>
+    <p>Wir setzen folgende Cookies bzw. lokale Speichertechnologien ein:</p>
+    <ul>
+      <li><strong>ga_consent</strong> – Speichert deine Cookie-Entscheidung im lokalen Browser-Speicher (kein Server, kein Ablaufdatum)</li>
+      <li><strong>_ga</strong> – Google Analytics: Unterscheidung von Nutzern. Laufzeit: 2 Jahre (nur nach Einwilligung)</li>
+      <li><strong>_ga_XXXXXXXXXX</strong> – Google Analytics: Sitzungsstatus. Laufzeit: 2 Jahre (nur nach Einwilligung)</li>
+    </ul>
+    <p>Technisch notwendige Cookies (z. B. für Sicherheit oder Session) werden ohne Einwilligung gesetzt, sofern sie für den Betrieb der Seite unbedingt erforderlich sind.</p>
+
+    <h4>6. Deine Rechte nach DSGVO</h4>
+    <p>Du hast gegenüber uns folgende Rechte bezüglich deiner personenbezogenen Daten:</p>
+    <ul>
+      <li><strong>Auskunft</strong> (Art. 15 DSGVO) – Welche Daten wir über dich verarbeiten</li>
+      <li><strong>Berichtigung</strong> (Art. 16 DSGVO) – Korrektur unrichtiger Daten</li>
+      <li><strong>Löschung</strong> (Art. 17 DSGVO) – „Recht auf Vergessenwerden"</li>
+      <li><strong>Einschränkung</strong> (Art. 18 DSGVO) – Verarbeitung einschränken lassen</li>
+      <li><strong>Datenübertragbarkeit</strong> (Art. 20 DSGVO) – Daten in maschinenlesbarem Format erhalten</li>
+      <li><strong>Widerspruch</strong> (Art. 21 DSGVO) – Verarbeitung auf Basis berechtigter Interessen widersprechen</li>
+      <li><strong>Widerruf der Einwilligung</strong> (Art. 7 Abs. 3 DSGVO) – Einwilligung jederzeit ohne Angabe von Gründen widerrufen</li>
+    </ul>
+    <p>Zur Ausübung deiner Rechte wende dich an: <a href="mailto:info@strohhalmwerk.de">info@strohhalmwerk.de</a></p>
+
+    <h4>7. Beschwerderecht bei der Aufsichtsbehörde</h4>
+    <p>Du hast das Recht, dich jederzeit bei einer Datenschutz-Aufsichtsbehörde zu beschweren. Zuständig für unseren Firmensitz Berlin ist:</p>
+    <p>
+      <strong>Berliner Beauftragte für Datenschutz und Informationsfreiheit</strong><br>
+      Friedrichstr. 219, 10969 Berlin<br>
+      Telefon: +49 30 13889-0<br>
+      E-Mail: mailbox@datenschutz-berlin.de<br>
+      <a href="https://www.datenschutz-berlin.de" target="_blank">www.datenschutz-berlin.de</a>
+    </p>
+
+    <h4>8. Einwilligung zu Google Analytics widerrufen</h4>
+    <p>Du kannst deine Einwilligung zu Google Analytics jederzeit und ohne Angabe von Gründen widerrufen. Die Rechtmäßigkeit der bis zum Widerruf erfolgten Verarbeitung bleibt davon unberührt.</p>
+    <p><button onclick="revokeConsent()" style="background:var(--light);border:1px solid var(--mid);padding:8px 14px;font-size:0.8rem;cursor:pointer;touch-action:manipulation;">Analytics-Einwilligung widerrufen</button></p>
+
+    <h4>9. Aktualität und Änderungen</h4>
+    <p>Diese Datenschutzerklärung ist aktuell gültig (Stand: März 2026). Wir behalten uns vor, sie bei Änderungen der rechtlichen Lage oder unserer Datenverarbeitung anzupassen.</p>
+
+    <button class="dsgvo-close" onclick="closeDsgvo()">Schließen</button>
+  </div>
+</div>
+
+<!-- ORDER SUMMARY BAR -->
+<div class="order-bar" id="orderBar">
+  <div class="order-bar-inner">
+    <div class="order-bar-info">
+      <div>
+        <div class="order-bar-title">Bestellübersicht</div>
+        <div class="order-bar-count"><span id="barTotalPkgs">0</span> Pakete · <span id="barTotalPcs">0</span> Stück</div>
+      </div>
+      <div class="order-bar-items" id="barItems"></div>
+    </div>
+    <div class="order-bar-actions">
+      <div class="order-bar-price"><span id="barPrice">0,00 €</span><span class="order-bar-discount" id="barDiscount"></span></div>
+      <button class="btn-order-clear" id="barClear">Zurücksetzen</button>
+      <button class="btn-order" id="barOrder">Warenkorb →</button>
+    </div>
+  </div>
+</div>
+
+<!-- CART DRAWER -->
+<div class="cart-overlay" id="cartOverlay"></div>
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-header">
+    <h3>Warenkorb</h3>
+    <button class="cart-close" id="cartClose">✕</button>
+  </div>
+  <div class="cart-body" id="cartBody">
+    <div class="cart-empty">Noch keine Produkte ausgewählt.</div>
+  </div>
+  <div class="cart-footer">
+    <div class="coupon-row">
+      <input class="coupon-input" id="couponInput" type="text" placeholder="Gutscheincode eingeben" maxlength="20" />
+      <button class="btn-coupon" id="btnCoupon">Einlösen</button>
+    </div>
+    <div class="coupon-feedback" id="couponFeedback"></div>
+    <div class="cart-totals" id="cartTotals"></div>
+    <p class="cart-note" id="cartNote"></p>
+    <button class="btn-checkout" id="btnCheckout">Anfrage senden →</button>
+  </div>
+</div>
+
+<script>
+  // ── HAMBURGER MENU ──
+  const toggle   = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+  const overlay  = document.getElementById('navOverlay');
+
+  function openMenu() {
+    toggle.classList.add('open');
+    navLinks.classList.add('open');
+    overlay.classList.add('open');
+    toggle.setAttribute('aria-label', 'Menü schließen');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeMenu() {
+    toggle.classList.remove('open');
+    navLinks.classList.remove('open');
+    overlay.classList.remove('open');
+    toggle.setAttribute('aria-label', 'Menü öffnen');
+    document.body.style.overflow = '';
+  }
+
+  toggle.addEventListener('click', () =>
+    navLinks.classList.contains('open') ? closeMenu() : openMenu()
+  );
+
+  overlay.addEventListener('click', closeMenu);
+
+  // Close menu when a nav link is clicked
+  document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', closeMenu);
+  });
+
+  // Close menu on resize to desktop
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 768) closeMenu();
+  });
+
+  // ── SMOOTH SCROLL WITH HEADER OFFSET ──
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        const offset = 72;
+        const top = target.getBoundingClientRect().top + window.scrollY - offset;
+        window.scrollTo({ top, behavior: 'smooth' });
+      }
+    });
+  });
+
+  // ── HEADER SHADOW ON SCROLL ──
+  window.addEventListener('scroll', () => {
+    document.querySelector('header').style.boxShadow =
+      window.scrollY > 10 ? '0 2px 20px rgba(0,0,0,0.08)' : 'none';
+  });
+
+  // ── CONTACT FORM ──
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const form = e.target;
+    const btn = form.querySelector('.btn-submit');
+    const successEl = document.getElementById('formSuccess');
+
+    btn.textContent = 'Wird gesendet...';
+    btn.disabled = true;
+
+    try {
+      const response = await fetch('send.php', {
+        method: 'POST',
+        body: new FormData(form)
+      });
+
+      if (response.ok) {
+        successEl.textContent = '✓ Danke für deine Nachricht! Wir melden uns bald bei dir.';
+        successEl.style.color = '';
+        successEl.style.display = 'block';
+        form.reset();
+      } else {
+        const data = await response.json();
+        const msg = data.errors ? data.errors.map(err => err.message).join(', ') : 'Unbekannter Fehler';
+        successEl.textContent = 'Fehler beim Senden: ' + msg;
+        successEl.style.color = '#c0392b';
+        successEl.style.display = 'block';
+      }
+    } catch (err) {
+      successEl.textContent = 'Netzwerkfehler – bitte versuche es später erneut.';
+      successEl.style.color = '#c0392b';
+      successEl.style.display = 'block';
+    } finally {
+      btn.textContent = 'Nachricht senden';
+      btn.disabled = false;
+    }
+  }
+
+  // ── PRICING & DISCOUNT LOGIC ──
+  const DISCOUNTS = [
+    { minPkgs: 500, pct: 50 },
+    { minPkgs: 200, pct: 35 },
+    { minPkgs:  50, pct: 20 },
+  ];
+
+  const VAT = 0.19;
+
+  // Gutscheincodes: Code → { type: 'pct'|'fixed', value, label }
+  const COUPONS = {
+    'WELCOME10':   { type: 'pct',   value: 10, label: 'Willkommens-Rabatt' },
+    'SAVE15':      { type: 'pct',   value: 15, label: 'Aktionscode' },
+    'ECO5':        { type: 'fixed', value: 5,  label: 'Öko-Bonus' },
+    'POPOLSKU_20': { type: 'pct',   value: 20, label: 'Aktionscode Popolsku' },
+  };
+
+  let activeCoupon = null;
+
+  function fmt(n) {
+    return n.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €';
+  }
+
+  function getDiscount(totalPkgs) {
+    for (const d of DISCOUNTS) {
+      if (totalPkgs >= d.minPkgs) return d;
+    }
+    return null;
+  }
+
+  function collectCart() {
+    const items = [];
+    let totalPkgs = 0, pricedTotal = 0, hasOnRequest = false;
+
+    document.querySelectorAll('#produkte tbody tr[data-sku]').forEach(row => {
+      const qty = parseInt(row.querySelector('.qty-input').value) || 0;
+      if (!qty) return;
+      const price = parseFloat(row.dataset.price);
+      const hasPrice = !isNaN(price) && row.dataset.price !== '';
+      totalPkgs += qty;
+      if (hasPrice) pricedTotal += price * qty;
+      else hasOnRequest = true;
+      items.push({ desc: row.dataset.desc, qty, price: hasPrice ? price : null });
+      row.classList.add('selected');
+    });
+
+    document.querySelectorAll('#produkte tbody tr[data-sku]').forEach(row => {
+      const qty = parseInt(row.querySelector('.qty-input').value) || 0;
+      if (!qty) row.classList.remove('selected');
+    });
+
+    return { items, totalPkgs, pricedTotal, hasOnRequest };
+  }
+
+  // ── ORDER BAR ──
+  const orderBar     = document.getElementById('orderBar');
+  const barTotalPkgs = document.getElementById('barTotalPkgs');
+  const barTotalPcs  = document.getElementById('barTotalPcs');
+  const barItems     = document.getElementById('barItems');
+  const barPrice     = document.getElementById('barPrice');
+  const barDiscount  = document.getElementById('barDiscount');
+
+  function updateOrderBar() {
+    const { items, totalPkgs, pricedTotal, hasOnRequest } = collectCart();
+    barTotalPkgs.textContent = totalPkgs;
+    barTotalPcs.textContent  = (totalPkgs * 100).toLocaleString('de-DE');
+    barItems.textContent     = items.map(i => `${i.desc} ×${i.qty}`).join('  ·  ');
+
+    const disc = getDiscount(totalPkgs);
+    const discounted = disc ? pricedTotal * (1 - disc.pct / 100) : pricedTotal;
+    barPrice.textContent = (hasOnRequest ? '≥ ' : '') + fmt(discounted);
+    barDiscount.textContent = disc ? `−${disc.pct} %` : '';
+    orderBar.classList.toggle('visible', totalPkgs > 0);
+  }
+
+  // ── CART DRAWER ──
+  const cartDrawer  = document.getElementById('cartDrawer');
+  const cartOverlay = document.getElementById('cartOverlay');
+  const cartBody    = document.getElementById('cartBody');
+  const cartTotals  = document.getElementById('cartTotals');
+  const cartNote    = document.getElementById('cartNote');
+
+  function openCart() {
+    const { items, totalPkgs, pricedTotal, hasOnRequest } = collectCart();
+
+    // Body
+    if (!items.length) {
+      cartBody.innerHTML = '<div class="cart-empty">Noch keine Produkte ausgewählt.</div>';
+    } else {
+      cartBody.innerHTML = items.map(item => `
+        <div class="cart-item">
+          <div class="cart-item-name">
+            ${item.desc.split(' – ')[0]}
+            <small>${item.desc.split(' – ')[1] || ''}</small>
+          </div>
+          <div class="cart-item-qty">${item.qty} × ${item.price !== null ? fmt(item.price) : '—'}</div>
+          <div class="cart-item-price ${item.price === null ? 'on-request' : ''}">
+            ${item.price !== null ? fmt(item.price * item.qty) : 'Auf Anfrage'}
+          </div>
+        </div>`).join('');
+    }
+
+    // Totals
+    const disc    = getDiscount(totalPkgs);
+    const discAmt = disc ? pricedTotal * (disc.pct / 100) : 0;
+    let afterDisc = pricedTotal - discAmt;
+
+    // Coupon
+    let couponAmt = 0;
+    if (activeCoupon) {
+      if (activeCoupon.type === 'pct')   couponAmt = afterDisc * (activeCoupon.value / 100);
+      if (activeCoupon.type === 'fixed') couponAmt = Math.min(activeCoupon.value, afterDisc);
+      afterDisc -= couponAmt;
+    }
+
+    const vatAmt   = afterDisc * VAT;
+    const grossTotal = afterDisc + vatAmt;
+
+    const nextDisc = DISCOUNTS.slice().reverse().find(d => d.minPkgs > totalPkgs);
+
+    let totalsHTML = `
+      <div class="cart-total-row">
+        <span>Zwischensumme (${totalPkgs} Pakete)</span>
+        <span>${fmt(pricedTotal)}${hasOnRequest ? ' + Anfrage' : ''}</span>
+      </div>`;
+    if (disc) {
+      totalsHTML += `
+      <div class="cart-total-row discount">
+        <span>Mengenrabatt −${disc.pct} %</span>
+        <span>−${fmt(discAmt)}</span>
+      </div>`;
+    }
+    if (activeCoupon && couponAmt > 0) {
+      const label = activeCoupon.type === 'pct'
+        ? `Gutschein „${activeCoupon.code}" −${activeCoupon.value} %`
+        : `Gutschein „${activeCoupon.code}"`;
+      totalsHTML += `
+      <div class="cart-total-row coupon">
+        <span>${label}</span>
+        <span>−${fmt(couponAmt)}</span>
+      </div>`;
+    }
+    totalsHTML += `
+      <div class="cart-total-row net-total">
+        <span>Nettobetrag</span>
+        <span>${hasOnRequest ? '≥ ' : ''}${fmt(afterDisc)}</span>
+      </div>
+      <div class="cart-total-row vat">
+        <span>zzgl. MwSt. 19 %</span>
+        <span>${hasOnRequest ? '≥ ' : ''}${fmt(vatAmt)}</span>
+      </div>
+      <div class="cart-total-row grand">
+        <span>Gesamtbetrag (brutto)</span>
+        <span>${hasOnRequest ? '≥ ' : ''}${fmt(grossTotal)}</span>
+      </div>`;
+    cartTotals.innerHTML = totalsHTML;
+
+    // Note
+    let noteHTML = 'Alle Preise pro 100er-Paket.';
+    if (hasOnRequest) noteHTML += ' <span class="on-req-badge">Einige Positionen auf Anfrage</span>';
+    if (nextDisc) {
+      const missing = nextDisc.minPkgs - totalPkgs;
+      noteHTML += `<br>Noch <strong>${missing} Pakete</strong> bis zum nächsten Rabatt (−${nextDisc.pct} %).`;
+    }
+    cartNote.innerHTML = noteHTML;
+
+    cartDrawer.classList.add('open');
+    cartOverlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeCart() {
+    cartDrawer.classList.remove('open');
+    cartOverlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  document.getElementById('barOrder').addEventListener('click', openCart);
+  document.getElementById('cartClose').addEventListener('click', closeCart);
+  cartOverlay.addEventListener('click', closeCart);
+
+  // ── COUPON ──
+  const couponInput    = document.getElementById('couponInput');
+  const couponFeedback = document.getElementById('couponFeedback');
+
+  function showCouponFeedback(msg, ok) {
+    couponFeedback.textContent = msg;
+    couponFeedback.className   = 'coupon-feedback ' + (ok ? 'ok' : 'err');
+    couponFeedback.style.display = 'block';
+  }
+
+  document.getElementById('btnCoupon').addEventListener('click', () => {
+    const code = couponInput.value.trim().toUpperCase();
+    if (!code) { showCouponFeedback('Bitte einen Code eingeben.', false); return; }
+    const found = COUPONS[code];
+    if (!found) { showCouponFeedback(`Code „${code}" ist ungültig.`, false); activeCoupon = null; openCart(); return; }
+    activeCoupon = { ...found, code };
+    const desc = found.type === 'pct' ? `−${found.value} % auf den Nettobetrag` : `−${found.value.toFixed(2).replace('.',',')} € Rabatt`;
+    showCouponFeedback(`✓ ${found.label} eingelöst (${desc}).`, true);
+    openCart();
+  });
+
+  // Enter key in coupon field
+  couponInput.addEventListener('keydown', e => { if (e.key === 'Enter') document.getElementById('btnCoupon').click(); });
+
+  // Checkout → prefill contact form
+  document.getElementById('btnCheckout').addEventListener('click', () => {
+    closeCart();
+    const { items } = collectCart();
+    const lines = items.map(i => `${i.desc} – ${i.qty} Paket(e)`);
+    const msg = document.getElementById('message');
+    if (msg) msg.value = 'Bestellanfrage:\n\n' + lines.join('\n') + '\n\nBitte um Angebot. Vielen Dank!';
+    const subj = document.getElementById('subject');
+    if (subj) subj.value = 'Bestellanfrage';
+    const offset = 72;
+    const top = document.getElementById('kontakt').getBoundingClientRect().top + window.scrollY - offset;
+    window.scrollTo({ top, behavior: 'smooth' });
+  });
+
+  // +/- buttons – iOS-safe: touchend mit preventDefault() verhindert, dass
+  // der -webkit-overflow-scrolling-Container den Touch als Scroll-Geste
+  // beansprucht und das click-Event cancelt. click bleibt für Desktop erhalten.
+  document.querySelectorAll('#produkte tr[data-sku] .qty-btn').forEach(btn => {
+
+    function applyQty() {
+      const input = btn.closest('.qty-ctrl').querySelector('.qty-input');
+      let val = parseInt(input.value) || 0;
+      if (btn.dataset.action === 'plus')  val = Math.min(val + 1, 9999);
+      if (btn.dataset.action === 'minus') val = Math.max(val - 1, 0);
+      input.value = val;
+      updateOrderBar();
+    }
+
+    // iOS: touchend mit preventDefault() stoppt den Scroll-Layer zuverlässig
+    btn.addEventListener('touchend', function(e) {
+      e.preventDefault(); // verhindert Scroll-Claim und nachfolgendes click-Event
+      applyQty();
+    }, { passive: false });
+
+    // Desktop: normaler Maus-Klick
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      applyQty();
+    });
+  });
+
+  // Manual input
+  document.querySelectorAll('#produkte tr[data-sku] .qty-input').forEach(input => {
+    input.addEventListener('input', () => {
+      let val = parseInt(input.value);
+      if (isNaN(val) || val < 0) val = 0;
+      if (val > 9999) val = 9999;
+      input.value = val;
+      updateOrderBar();
+    });
+  });
+
+  // Clear all
+  document.getElementById('barClear').addEventListener('click', () => {
+    document.querySelectorAll('#produkte tr[data-sku] .qty-input').forEach(i => i.value = 0);
+    updateOrderBar();
+  });
+
+  // ── FADE-IN ON SCROLL ──
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.product-card, .feature-item').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    observer.observe(el);
+  });
+
+  // ── GOOGLE ANALYTICS + COOKIE CONSENT ──
+  const GA_ID = 'G-XXXXXXXXXX'; // ← deine Measurement ID hier eintragen
+
+  function loadGA() {
+    if (window._gaLoaded) return;
+    window._gaLoaded = true;
+    const s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
+    document.head.appendChild(s);
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    window.gtag = gtag;
+    gtag('js', new Date());
+    gtag('config', GA_ID, { anonymize_ip: true });
+  }
+
+  function hideCookieBanner() {
+    document.getElementById('cookieBanner').classList.remove('visible');
+  }
+
+  // Einwilligung annehmen
+  document.getElementById('btnCookieAccept').addEventListener('click', () => {
+    localStorage.setItem('ga_consent', 'granted');
+    hideCookieBanner();
+    loadGA();
+  });
+
+  // Ablehnen
+  document.getElementById('btnCookieDecline').addEventListener('click', () => {
+    localStorage.setItem('ga_consent', 'denied');
+    hideCookieBanner();
+  });
+
+  // Einwilligung widerrufen (aus Datenschutz-Modal heraus aufrufbar)
+  function revokeConsent() {
+    localStorage.setItem('ga_consent', 'denied');
+    if (window.gtag) gtag('consent', 'update', { analytics_storage: 'denied' });
+    closeDsgvo();
+    alert('Deine Einwilligung wurde widerrufen. Analytics ist deaktiviert.');
+  }
+
+  // Datenschutz-Modal
+  function openDsgvo() {
+    document.getElementById('dsgvoOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeDsgvo() {
+    document.getElementById('dsgvoOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.getElementById('dsgvoOverlay').addEventListener('click', function(e) {
+    if (e.target === this) closeDsgvo();
+  });
+
+  // Beim Laden: Consent prüfen
+  (function() {
+    const consent = localStorage.getItem('ga_consent');
+    if (consent === 'granted') {
+      loadGA();
+    } else if (!consent) {
+      // Kurze Verzögerung, damit Seite erst rendert
+      setTimeout(() => {
+        document.getElementById('cookieBanner').classList.add('visible');
+      }, 800);
+    }
+  })();
+</script>
+
+</body>
+</html>

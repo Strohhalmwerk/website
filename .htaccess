@@ -1,0 +1,5 @@
+# .env vor direktem Zugriff schützen
+<Files ".env">
+    Order allow,deny
+    Deny from all
+</Files>
