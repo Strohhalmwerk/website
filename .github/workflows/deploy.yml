@@ -10,25 +10,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: public_html leeren (WordPress entfernen)
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        with:
-          server: ${{ secrets.FTP_HOST }}
-          username: ${{ secrets.FTP_USER }}
-          password: ${{ secrets.FTP_PASS }}
-          server-dir: /public_html/
-          protocol: ftps
-          dangerous-clean-slate: true
-          local-dir: ./empty/
-        continue-on-error: true
-
       - name: Deploy via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.FTP_HOST }}
           username: ${{ secrets.FTP_USER }}
           password: ${{ secrets.FTP_PASS }}
-          server-dir: /html/
+          server-dir: /public_html/
           protocol: ftps
           dangerous-clean-slate: true
           exclude: |
