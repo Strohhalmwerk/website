@@ -7,7 +7,7 @@ const POSTED_FOLDER = path.join(INSTAGRAM_FOLDER, 'gepostet');
 const WEBSITE_URL = 'https://strohhalmwerk.de';
 const FTP_TEMP_PATH = '/html/instagram-temp';
 
-async function refreshToken(accessToken, appSecret) {
+async function refreshToken(accessToken) {
   const url = `https://graph.facebook.com/v19.0/oauth/access_token?grant_type=ig_refresh_token&access_token=${accessToken}`;
   const res = await fetch(url);
   const data = await res.json();
@@ -30,7 +30,7 @@ async function checkTokenExpiry(accessToken, appId, appSecret) {
 
   if (daysLeft < 7) {
     console.log('Token läuft bald ab – erneuere automatisch...');
-    return await refreshToken(accessToken, appSecret);
+    return await refreshToken(accessToken);
   }
   return accessToken;
 }
@@ -42,7 +42,8 @@ async function uploadToFTP(localPath, filename) {
       host: process.env.FTP_HOST,
       user: process.env.FTP_USER,
       password: process.env.FTP_PASS,
-      secure: false,
+      secure: true,
+      secureOptions: { rejectUnauthorized: false },
     });
     await client.ensureDir(FTP_TEMP_PATH);
     await client.uploadFrom(localPath, `${FTP_TEMP_PATH}/${filename}`);
@@ -60,7 +61,8 @@ async function deleteFromFTP(filename) {
       host: process.env.FTP_HOST,
       user: process.env.FTP_USER,
       password: process.env.FTP_PASS,
-      secure: false,
+      secure: true,
+      secureOptions: { rejectUnauthorized: false },
     });
     await client.remove(`${FTP_TEMP_PATH}/${filename}`);
     console.log('Bild vom Server gelöscht:', filename);
