@@ -22,9 +22,5 @@ jobs:
           exclude: |
             **/.git*
             **/.git*/**
-            **/node_modules/**
             .env
             ssh/**
-            deploy.ps1
-            sketch.js
-            package*.json
