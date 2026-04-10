@@ -8,24 +8,24 @@ const WEBSITE_URL = 'https://strohhalmwerk.de';
 const FTP_TEMP_PATH = '/html/instagram-temp';
 
 async function refreshToken(accessToken) {
-  const url = `https://graph.facebook.com/v19.0/oauth/access_token?grant_type=ig_refresh_token&access_token=${accessToken}`;
+  const url = `https://graph.instagram.com/refresh_access_token?grant_type=ig_refresh_token&access_token=${accessToken}`;
   const res = await fetch(url);
   const data = await res.json();
   if (data.access_token) {
-    console.log('Token erneuert. Neuer Token:', data.access_token);
+    console.log('Token erneuert.');
     return data.access_token;
   }
   return accessToken;
 }
 
-async function checkTokenExpiry(accessToken, appId, appSecret) {
-  const url = `https://graph.facebook.com/debug_token?input_token=${accessToken}&access_token=${appId}|${appSecret}`;
+async function checkTokenExpiry(accessToken) {
+  const url = `https://graph.instagram.com/access_token?grant_type=ig_refresh_token&access_token=${accessToken}`;
   const res = await fetch(url);
   const data = await res.json();
-  const expiresAt = data.data?.expires_at;
-  if (!expiresAt) return accessToken;
+  const expiresIn = data.expires_in;
+  if (!expiresIn) return accessToken;
 
-  const daysLeft = (expiresAt - Date.now() / 1000) / 86400;
+  const daysLeft = expiresIn / 86400;
   console.log(`Token läuft in ${Math.round(daysLeft)} Tagen ab.`);
 
   if (daysLeft < 7) {
@@ -74,7 +74,7 @@ async function deleteFromFTP(filename) {
 }
 
 async function createMediaContainer(imageUrl, caption, accessToken, userId) {
-  const res = await fetch(`https://graph.facebook.com/v19.0/${userId}/media`, {
+  const res = await fetch(`https://graph.instagram.com/v21.0/${userId}/media`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ image_url: imageUrl, caption, access_token: accessToken }),
@@ -87,7 +87,7 @@ async function createMediaContainer(imageUrl, caption, accessToken, userId) {
 async function waitForContainer(containerId, accessToken) {
   for (let i = 0; i < 12; i++) {
     const res = await fetch(
-      `https://graph.facebook.com/v19.0/${containerId}?fields=status_code&access_token=${accessToken}`
+      `https://graph.instagram.com/v21.0/${containerId}?fields=status_code&access_token=${accessToken}`
     );
     const data = await res.json();
     if (data.status_code === 'FINISHED') return;
@@ -99,7 +99,7 @@ async function waitForContainer(containerId, accessToken) {
 }
 
 async function publishPost(containerId, accessToken, userId) {
-  const res = await fetch(`https://graph.facebook.com/v19.0/${userId}/media_publish`, {
+  const res = await fetch(`https://graph.instagram.com/v21.0/${userId}/media_publish`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ creation_id: containerId, access_token: accessToken }),
@@ -110,18 +110,13 @@ async function publishPost(containerId, accessToken, userId) {
 }
 
 async function main() {
-  const { INSTAGRAM_ACCESS_TOKEN, INSTAGRAM_USER_ID, INSTAGRAM_APP_ID, INSTAGRAM_APP_SECRET } =
-    process.env;
+  const { INSTAGRAM_ACCESS_TOKEN, INSTAGRAM_USER_ID } = process.env;
 
   if (!INSTAGRAM_ACCESS_TOKEN || !INSTAGRAM_USER_ID) {
     throw new Error('Fehlende Umgebungsvariablen: INSTAGRAM_ACCESS_TOKEN oder INSTAGRAM_USER_ID');
   }
 
-  const accessToken = await checkTokenExpiry(
-    INSTAGRAM_ACCESS_TOKEN,
-    INSTAGRAM_APP_ID,
-    INSTAGRAM_APP_SECRET
-  );
+  const accessToken = await checkTokenExpiry(INSTAGRAM_ACCESS_TOKEN);
 
   if (!fs.existsSync(INSTAGRAM_FOLDER)) {
     console.log('Kein Instagram-Ordner gefunden.');
