@@ -51,7 +51,7 @@ async function uploadToFTP(localPath, filename) {
   } finally {
     client.close();
   }
-  return `${WEBSITE_URL}/instagram-temp/${filename}`;
+  return `${WEBSITE_URL}/instagram-temp/${encodeURIComponent(filename)}`;
 }
 
 async function deleteFromFTP(filename) {
