@@ -46,7 +46,7 @@ async function uploadToFTP(localPath, filename) {
       secureOptions: { rejectUnauthorized: false },
     });
     await client.ensureDir(FTP_TEMP_PATH);
-    await client.uploadFrom(localPath, `${FTP_TEMP_PATH}/${filename}`);
+    await client.uploadFrom(localPath, filename);
     console.log('Bild hochgeladen:', filename);
   } finally {
     client.close();
