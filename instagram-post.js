@@ -1,11 +1,9 @@
 const fs = require('fs');
 const path = require('path');
-const ftp = require('basic-ftp');
 
 const INSTAGRAM_FOLDER = path.join(__dirname, 'Instagram');
 const POSTED_FOLDER = path.join(INSTAGRAM_FOLDER, 'gepostet');
 const WEBSITE_URL = 'https://strohhalmwerk.de';
-const FTP_TEMP_PATH = '/html/instagram-temp';
 
 async function refreshToken(accessToken) {
   const url = `https://graph.instagram.com/refresh_access_token?grant_type=ig_refresh_token&access_token=${accessToken}`;
@@ -33,44 +31,6 @@ async function checkTokenExpiry(accessToken) {
     return await refreshToken(accessToken);
   }
   return accessToken;
-}
-
-async function uploadToFTP(localPath, filename) {
-  const client = new ftp.Client();
-  try {
-    await client.access({
-      host: process.env.FTP_HOST,
-      user: process.env.FTP_USER,
-      password: process.env.FTP_PASS,
-      secure: true,
-      secureOptions: { rejectUnauthorized: false },
-    });
-    await client.ensureDir(FTP_TEMP_PATH);
-    await client.uploadFrom(localPath, filename);
-    console.log('Bild hochgeladen:', filename);
-  } finally {
-    client.close();
-  }
-  return `${WEBSITE_URL}/instagram-temp/${encodeURIComponent(filename)}`;
-}
-
-async function deleteFromFTP(filename) {
-  const client = new ftp.Client();
-  try {
-    await client.access({
-      host: process.env.FTP_HOST,
-      user: process.env.FTP_USER,
-      password: process.env.FTP_PASS,
-      secure: true,
-      secureOptions: { rejectUnauthorized: false },
-    });
-    await client.remove(`${FTP_TEMP_PATH}/${filename}`);
-    console.log('Bild vom Server gelöscht:', filename);
-  } catch (e) {
-    console.error('Fehler beim Löschen vom FTP:', e.message);
-  } finally {
-    client.close();
-  }
 }
 
 async function createMediaContainer(imageUrl, caption, accessToken, userId) {
@@ -132,11 +92,10 @@ async function main() {
   let posted = 0;
 
   for (const entry of entries) {
-    // Erwartet Format: YYYY-MM-DD_HH-MM
     const match = entry.match(/^(\d{4}-\d{2}-\d{2})_(\d{2}-\d{2})$/);
     if (!match) continue;
 
-    const postTime = new Date(`${match[1]}T${match[2].replace('-', ':')}:00`);
+    const postTime = new Date(`${match[1]}T${match[2].replace('-', ':')}:00Z`);
     if (postTime > now) {
       console.log(`⏳ ${entry}: noch nicht fällig (${postTime.toLocaleString('de-DE')})`);
       continue;
@@ -155,16 +114,14 @@ async function main() {
     const caption = captionFile
       ? fs.readFileSync(path.join(postFolder, captionFile), 'utf-8').trim()
       : '';
-    const imagePath = path.join(postFolder, imageFile);
-    const tempFilename = `${entry}_${imageFile}`;
+
+    const imageUrl = `${WEBSITE_URL}/Instagram/${encodeURIComponent(entry)}/${encodeURIComponent(imageFile)}`;
+    console.log(`📸 Poste: ${entry} → ${imageUrl}`);
 
     try {
-      console.log(`📸 Poste: ${entry}`);
-      const imageUrl = await uploadToFTP(imagePath, tempFilename);
       const containerId = await createMediaContainer(imageUrl, caption, accessToken, INSTAGRAM_USER_ID);
       await waitForContainer(containerId, accessToken);
       const postId = await publishPost(containerId, accessToken, INSTAGRAM_USER_ID);
-      await deleteFromFTP(tempFilename);
 
       fs.renameSync(postFolder, path.join(POSTED_FOLDER, entry));
       console.log(`✅ Erfolgreich gepostet! Post-ID: ${postId} → verschoben nach gepostet/`);
